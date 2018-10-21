@@ -1,50 +1,55 @@
 #https://gist.github.com/michaelneu/2ca7987ef00fa3fbe4fd7b9c07834cc7
 version: '3'
 services:
-  web8100:
+  web8600:
     image: nginx:1.14.0
     ports:
-      - "80:80"
-      - "443:443"
-    container_name: web8100 
+      - "8600:80"
+    # uncomment port 443 for https
+    # - "443:443"
+    container_name: web8600 
     volumes:
       - ./code:/code
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/ssl/certs:/etc/nginx/ssl/certs
     links:
-      - php9100
-  php9100:
-    build: .
+      - php9600
+  php9600:
+    build: 
+      context: .
+      dockerfile: Dockerfile.5.6-fpm
     volumes: 
       - ./code:/code
-    image: php9100:5.6-fpm
+    image: php9600:5.6-fpm
     environment:
       XDEBUG_CONFIG: remote_host=host.docker.internal
     links:
-      - mysql5.6-3316
-      - maildev8190
-  mysql5.6-3316:
+      - mysql5.6-3366
+      - maildev8690
+  mysql5.6-3366:
     image: mysql:5.6
     volumes:
-      - ./mysql:/var/lib/mysql
-    container_name: mysql5.6-3316 
+      - mysql5.6-3366:/var/lib/mysql
+    container_name: mysql5.6-3366 
     ports:
-      - "3316:3306"
+      - "3366:3306"
     environment: 
       - MYSQL_ROOT_PASSWORD=password
-  phpmyadmin8180:
+  phpmyadmin8680:
     image: phpmyadmin/phpmyadmin
     links:
-      - mysql5.6-3316:db
+      - mysql5.6-3366:db
     ports:
-      - "8180:80"
-    container_name: phpmyadmin8180 
+      - "8680:80"
+    container_name: phpmyadmin8680 
     environment:
       - PMA_USER=root
       - PMA_PASSWORD=password
       - PHP_UPLOAD_MAX_FILESIZE=100MB
-  maildev8190:
+  maildev8690:
     image: djfarrelly/maildev
-    container_name: maildev8190 
+    container_name: maildev8690 
     ports:
-     - "8190:80"
+     - "8690:80"
+volumes:
+  mysql5.6-3366:

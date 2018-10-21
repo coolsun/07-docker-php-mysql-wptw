@@ -15,9 +15,12 @@ In nginx/conf.d/nginx.conf
 
 C. Choose 7.0-fpm or 5.6-fpm
 1. default is 7.0-fpm
-2. use the Docker.5.6-fpm and docker-compose.yml.5.6-fpm for 5.6-fpm.
-  rm Docker; ln -s Docker.5.6-fpm Docker
-  rm docker-compose.yml; ln -s docker-compose.yml.5.6-fpm docker-compose.yml
+  1. use docker-compose.yml.5.6-fpm for 5.6-fpm.
+     cp docker-compose.yml.5.6-fpm docker-compose.yml
+     docker-compose up   # auto rebuild
+  2. switch back to 7.0-fpm
+     cp docker-compose.yml.7.0-fpm docker-compose.yml
+     docker-compose up   # auto rebuild
 
 D. SSL is off at the moment.
 1. It is only set up in 01-docker-php-mysql-ypets
