@@ -22,6 +22,8 @@ C. Choose 7.0-fpm or 5.6-fpm
      cp docker-compose.yml.7.0-fpm docker-compose.yml
      docker-compose up   # auto rebuild
 
+
+
 D. SSL is off at the moment.
 1. It is only set up in 01-docker-php-mysql-ypets
   In docker-compose.yml
@@ -46,4 +48,17 @@ E. Start up
 3. Use a browse and go to localhost:8x80 => phpmyadmin8x80
   import data 
 4. Copy your code to code directory
+5. Create mysql db
+   5.0 access database: mysql -u root -ppassword -h localhost -P 33x6 --protocol=tcp
+   5.1 import from data/wordpress.4.9.8_root_password.sql.gz
+       mysql -u root -h localhost -P 33x6 --protocol=tcp < wordpress.4.9.8_root_password.sql
+       Or import from phpadmin8x80
+   5.2 Or Create database from phpmyadmin8x80
+       select utf8_general_ci
+       database name = wordpress
+6. Install wordpress
+   6.1 hit http://localhost:80x0/wp-admin
+   6.2 create user root, pwd password
+   6.3 follow the instruction
+
 
